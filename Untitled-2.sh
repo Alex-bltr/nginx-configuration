@@ -22,7 +22,7 @@ sudo ufw allow 'Nginx Full'
 sudo adduser --disabled-password --gecos "" "$mainusr"
 sudo usermod -aG "$maingroup" "$mainusr"
 sudo chown -R www-data:www-data /var/www/html
-
+echo phase---------------------addusr abgeschlossen 
 # Nginx installieren & Firewall anpassen
 
 
@@ -34,6 +34,8 @@ php8.3-xml php8.3-intl php8.3-curl php8.3-gd \
 php8.3-imagick php8.3-cli php8.3-dev php8.3-imap \
 php8.3-mbstring php8.3-opcache php8.3-redis \
 php8.3-soap php8.3-zip
+
+echo phase--------------------------php fertig 
 
 # Jetzt PHP-Konfig anpassen (erst jetzt sind die Dateien da)
 file_line_check() {
@@ -68,8 +70,6 @@ done
 sudo systemctl restart php8.3-fpm
 
 # Nginx config neu laden
-sudo systemctl stop nginx
-sudo pkill nginx
 sudo apt-get remove --purge -y nginx nginx-common nginx-full
 sudo rm -rf /etc/nginx /var/log/nginx /var/cache/nginx /usr/local/nginx /usr/local/src/nginx-*
 sudo rm -f /etc/systemd/system/nginx.service
@@ -80,22 +80,23 @@ sudo apt update
 sudo apt install -y build-essential gcc make cmake git libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev
 
 # 2. Quellen herunterladen
+echo "_--------------------------------------------------------------------"
 cd /usr/local/src
 sudo wget http://nginx.org/download/nginx-1.27.0.tar.gz
 sudo tar zxvf nginx-1.27.0.tar.gz
-
+echo "_---------------------111111111111111111111111111111-----------------------------------------------"
 sudo git clone https://github.com/google/ngx_brotli.git
 cd ngx_brotli
 sudo git submodule update --init
-cd ..
+echo "_-----------------------22222222222222222222222222222222222---------------------------------------------"
 
-sudo mkdir -p deps/brotli/build
-cd deps/brotli/build
+sudo mkdir /usr/local/src/ngx_brotli/deps/brotli/build
+cd /usr/local/src/ngx_brotli/deps/brotli/build
 sudo cmake ..
 sudo make
-
+echo "_--------------------------3333333333333333333333333333333333-----------------------------------------"
 # 3. Nginx konfigurieren mit Brotli Modul
-cd nginx-1.27.0
+cd /usr/local/src/nginx-1.27.0
 sudo ./configure --add-dynamic-module=/usr/local/src/ngx_brotli --with-cc-opt="-I/usr/local/src/ngx_brotli/deps/brotli/include" --with-ld-opt="-L/usr/local/src/ngx_brotli/deps/brotli/build"
 
 
