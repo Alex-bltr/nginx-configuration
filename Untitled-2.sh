@@ -103,6 +103,7 @@ sudo ./configure --add-dynamic-module=/usr/local/src/ngx_brotli --with-cc-opt="-
 # 4. Module bauen
 sudo make modules
 
+sudo mkdir /usr/local/nginx
 sudo mkdir /usr/local/nginx/modules/
 
 # 5. Module ins nginx Verzeichnis kopieren
@@ -114,11 +115,6 @@ sudo make install
 # 6. Rechte setzen für nginx Verzeichnisse (Logs etc.)
 sudo mkdir -p /usr/local/nginx/logs
 sudo chown -R www-data:www:data /usr/local/nginx
-
-
-sudo curl -O https://raw.githubusercontent.com/Alex-bltr/testgittt/main/Programmierzeug3.0/nginx.conf
-
-
 
 #7
 sudo tee /etc/systemd/system/nginx.service > /dev/null <<EOF
