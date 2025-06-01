@@ -191,6 +191,6 @@ sudo mkdir nginx
 cd nginx
 sudo mkdir fastcgi_cache
 
-sudo /usr/local/nginx/sbin/nginx -s reload
+echo "/usr/local/nginx/sbin/nginx -s reload"
 
 echo "Server config successful"
