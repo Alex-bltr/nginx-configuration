@@ -34,12 +34,6 @@ sudo apt install neovim
 sudo apt install net-tools
 echo
 
-cd /var
-cd cache
-sudo mkdir nginx
-cd nginx
-sudo mkdir fastcgi_cache
-
 # PHP PPA hinzufügen & installieren
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
@@ -190,6 +184,12 @@ sudo mysql -e "FLUSH PRIVILEGES;"
 cd /var/www/html
 sudo wp core download --allow-root
 sudo chown -R www-data:www-data /var/www/html
+
+cd /var
+cd cache
+sudo mkdir nginx
+cd nginx
+sudo mkdir fastcgi_cache
 
 sudo /usr/local/nginx/sbin/nginx -s reload
 
