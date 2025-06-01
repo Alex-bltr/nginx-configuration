@@ -19,7 +19,7 @@ cd /var
 sudo mkdir www
 cd www
 sudo mkdir html
-cd ~
+
 
 # Benutzer anlegen
 sudo adduser --disabled-password --gecos "" "$mainusr"
@@ -32,13 +32,13 @@ sudo chown -R www-data:www-data /var/www/html
 sudo apt install htop
 sudo apt install neovim 
 sudo apt install net-tools
+echo
 
-cd /var/cache
+cd /var
+cd cache
 sudo mkdir nginx
 cd nginx
 sudo mkdir fastcgi_cache
-
-cd ~
 
 # PHP PPA hinzufügen & installieren
 sudo add-apt-repository ppa:ondrej/php -y
