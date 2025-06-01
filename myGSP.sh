@@ -2,17 +2,6 @@
 set -e
 echo "--- Starting configuration ----------"
 
-sudo apt install htop
-sudo apt install neovim 
-sudo apt install net-tools
-
-cd /var/cache
-sudo mkdir nginx
-cd nginx
-sudo mkdir fastcgi_cache
-
-cd ~
-
 sudo apt update && sudo apt upgrade -y
 maingroup="www-data"
 mainusr="wpusr1"
