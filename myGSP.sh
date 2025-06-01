@@ -15,12 +15,20 @@ sudo ufw allow OpenSSH
 sudo ufw allow 80/tcp
 sudo ufw --force enable
 
+cd /var
+sudo mkdir www
+cd www
+sudo mkdir html
+cd ~
+
 # Benutzer anlegen
-#sudo adduser --disabled-password --gecos "" "$mainusr"
-#sudo usermod -aG "$maingroup" "$mainusr"
-#sudo chown -R www-data:www-data /var/www/html
+sudo adduser --disabled-password --gecos "" "$mainusr"
+sudo usermod -aG "$maingroup" "$mainusr"
+sudo usermod -aG "$maingroup" vpsusr1
+sudo chown -R www-data:www-data /var/www/html
 #echo phase---------------------addusr abgeschlossen 
-# Nginx installieren & Firewall anpassen
+
+#Nginx installieren & Firewall anpassen
 sudo apt install htop
 sudo apt install neovim 
 sudo apt install net-tools
