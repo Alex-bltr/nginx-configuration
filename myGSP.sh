@@ -147,7 +147,7 @@ cd nginx
 sudo mv cache /usr/local/nginx/conf
 sudo mv global /usr/local/nginx/conf
 sudo mv restrictions /usr/local/nginx/conf
-
+sudo mv snippets /usr/local/nginx/conf
 sudo rm /usr/local/nginx/conf/nginx.conf
 
 sudo mv nginx.conf /usr/local/nginx/conf
@@ -175,11 +175,13 @@ echo
 sudo mysql -e "CREATE USER '$mainusr'@'localhost' IDENTIFIED BY '$dbpass';"
 sudo mysql -e "GRANT ALL PRIVILEGES ON wpdbmain.* TO '$mainusr'@'localhost';"
 sudo mysql -e "FLUSH PRIVILEGES;"
-chmod 777 /var/www/html
+
 cd /var/www/html
 sudo wp core download --allow-root
 sudo chown -R www-data:www-data /var/www/html
 
 sudo apt install -y neovim 
+sudo apt install net-tools
+sudo /usr/local/nginx/sbin/nginx -s reload
 
 echo "Server config successful"
