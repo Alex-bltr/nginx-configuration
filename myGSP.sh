@@ -182,6 +182,11 @@ sudo chown -R www-data:www-data /var/www/html
 
 sudo apt install -y neovim 
 sudo apt install net-tools
+
+cd /var/cache
+sudo mkdir nginx
+cd nginx
+sudo mkdir fastcgi_cache
 sudo /usr/local/nginx/sbin/nginx -s reload
 
 echo "Server config successful"
