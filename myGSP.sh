@@ -3,7 +3,7 @@ set -e
 echo "--- Starting configuration ----------"
 
 sudo apt install htop
-sudo apt install -y neovim 
+sudo apt install neovim 
 sudo apt install net-tools
 
 cd /var/cache
@@ -32,7 +32,16 @@ sudo usermod -aG "$maingroup" "$mainusr"
 sudo chown -R www-data:www-data /var/www/html
 echo phase---------------------addusr abgeschlossen 
 # Nginx installieren & Firewall anpassen
+sudo apt install htop
+sudo apt install neovim 
+sudo apt install net-tools
 
+cd /var/cache
+sudo mkdir nginx
+cd nginx
+sudo mkdir fastcgi_cache
+
+cd ~
 
 # PHP PPA hinzufügen & installieren
 sudo add-apt-repository ppa:ondrej/php -y
