@@ -16,10 +16,10 @@ sudo ufw allow 80/tcp
 sudo ufw --force enable
 
 # Benutzer anlegen
-sudo adduser --disabled-password --gecos "" "$mainusr"
-sudo usermod -aG "$maingroup" "$mainusr"
-sudo chown -R www-data:www-data /var/www/html
-echo phase---------------------addusr abgeschlossen 
+#sudo adduser --disabled-password --gecos "" "$mainusr"
+#sudo usermod -aG "$maingroup" "$mainusr"
+#sudo chown -R www-data:www-data /var/www/html
+#echo phase---------------------addusr abgeschlossen 
 # Nginx installieren & Firewall anpassen
 sudo apt install htop
 sudo apt install neovim 
