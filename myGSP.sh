@@ -3,6 +3,15 @@ set -e
 echo "--- Starting configuration ----------"
 
 sudo apt install htop
+sudo apt install -y neovim 
+sudo apt install net-tools
+
+cd /var/cache
+sudo mkdir nginx
+cd nginx
+sudo mkdir fastcgi_cache
+
+cd ~
 
 sudo apt update && sudo apt upgrade -y
 maingroup="www-data"
@@ -14,11 +23,9 @@ sudo ufw reset
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow OpenSSH
-sudo ufw allow 80/tcp 
+sudo ufw allow 80/tcp
 sudo ufw --force enable
 
-sudo apt install -y nginx
-sudo ufw allow 'Nginx Full'
 # Benutzer anlegen
 sudo adduser --disabled-password --gecos "" "$mainusr"
 sudo usermod -aG "$maingroup" "$mainusr"
@@ -34,9 +41,7 @@ sudo apt install -y php8.3-fpm php8.3-common php8.3-mysql \
 php8.3-xml php8.3-intl php8.3-curl php8.3-gd \
 php8.3-imagick php8.3-cli php8.3-dev php8.3-imap \
 php8.3-mbstring php8.3-opcache php8.3-redis \
-php8.3-soap php8.3-zip
-
-echo phase--------------------------php fertig 
+php8.3-soap php8.3-zip 
 
 # Jetzt PHP-Konfig anpassen (erst jetzt sind die Dateien da)
 file_line_check() {
@@ -180,13 +185,6 @@ cd /var/www/html
 sudo wp core download --allow-root
 sudo chown -R www-data:www-data /var/www/html
 
-sudo apt install -y neovim 
-sudo apt install net-tools
-
-cd /var/cache
-sudo mkdir nginx
-cd nginx
-sudo mkdir fastcgi_cache
 sudo /usr/local/nginx/sbin/nginx -s reload
 
 echo "Server config successful"
