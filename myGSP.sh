@@ -1,10 +1,15 @@
 #!/bin/bash
 set -e
 echo "--- Starting configuration ----------"
-
 sudo apt update && sudo apt upgrade -y
 maingroup="www-data"
 mainusr="wpusr1"
+
+sudo adduser --disabled-password --gecos "" "$mainusr"
+sudo usermod -aG "$maingroup" "$mainusr"
+
+su  "$mainusr"
+sudo chown -R www-data:www-data /var/www/html
 
 # Firewall und OpenSSH
 sudo apt install -y openssh-server ufw
@@ -21,11 +26,6 @@ cd www
 sudo mkdir html
 
 
-# Benutzer anlegen
-sudo adduser --disabled-password --gecos "" "$mainusr"
-sudo usermod -aG "$maingroup" "$mainusr"
-sudo usermod -aG "$maingroup" vpsusr1
-sudo chown -R www-data:www-data /var/www/html
 #echo phase---------------------addusr abgeschlossen 
 
 #Nginx installieren & Firewall anpassen
