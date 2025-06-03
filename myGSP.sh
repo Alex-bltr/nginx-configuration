@@ -2,13 +2,9 @@
 set -e
 echo "--- Starting configuration ----------"
 sudo apt update && sudo apt upgrade -y
+
 maingroup="www-data"
 mainusr="wpusr1"
-
-sudo adduser "$mainusr"
-sudo usermod -aG "$maingroup" "$mainusr"
-
-sudo chown -R www-data:www-data /var/www/html
 
 # Firewall und OpenSSH
 sudo apt install -y openssh-server ufw
@@ -31,7 +27,6 @@ sudo mkdir html
 sudo apt install htop
 sudo apt install neovim 
 sudo apt install net-tools
-echo
 
 # PHP PPA hinzufügen & installieren
 sudo add-apt-repository ppa:ondrej/php -y
