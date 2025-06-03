@@ -5,10 +5,9 @@ sudo apt update && sudo apt upgrade -y
 maingroup="www-data"
 mainusr="wpusr1"
 
-sudo adduser --disabled-password --gecos "" "$mainusr"
+sudo adduser "$mainusr"
 sudo usermod -aG "$maingroup" "$mainusr"
 
-su  "$mainusr"
 sudo chown -R www-data:www-data /var/www/html
 
 # Firewall und OpenSSH
