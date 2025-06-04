@@ -97,8 +97,7 @@ sudo make
 #echo "_--------------------------3333333333333333333333333333333333-----------------------------------------"
 # 3. Nginx konfigurieren mit Brotli Modul
 cd /usr/local/src/nginx-1.27.0
-sudo ./configure --add-dynamic-module=/usr/local/src/ngx_brotli --with-cc-opt="-I/usr/local/src/ngx_brotli/deps/brotli/include" --with-ld-opt="-L/usr/local/src/ngx_brotli/deps/brotli/build"
-
+sudo ./configure --with-http_ssl_module --with-http_v2_module --add-dynamic-module=/usr/local/src/ngx_brotli --with-cc-opt="-I/usr/local/src/ngx_brotli/deps/brotli/include" --with-ld-opt="-L/usr/local/src/ngx_brotli/deps/brotli/build"
 
 # 4. Module bauen
 sudo make modules
@@ -187,4 +186,11 @@ sudo mkdir fastcgi_cache
 
 echo "/usr/local/nginx/sbin/nginx -s reload"
 
+timedatectl set-timezone Europe/Berlin
+
 echo "Server config successful"
+#es geht halt etzt darum zu sagen das ich mir den mailserver auch hier ienfach autonom einrichten kann 
+#allerdings ist halt die frge was isnd miene anvrderungen aber das werde ich ha alles im kurs lernen 
+#die andere frageist sollte ich alles per hand machen oder mailcow nutzen um mir diese schritten zu 
+#sparen andereseits ist es halt teilweise dann doch notwendig das wa spassiert zu verstehnen deswegen mache ich ja den kurs und kann ach gleich einfach alles#
+#selbst machen 
