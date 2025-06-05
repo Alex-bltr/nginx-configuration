@@ -184,9 +184,28 @@ sudo mkdir nginx
 cd nginx
 sudo mkdir fastcgi_cache
 
-echo "/usr/local/nginx/sbin/nginx -s reload"
+sudo apt-get remove certbot
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot certonly --standalone -d test.scaveo.de
 
 timedatectl set-timezone Europe/Berlin
+
+curl -sSL https://get.docker.com/ | CHANNEL=stable sh
+systemctl enable --now docker
+
+apt update
+apt install docker-compose-plugin
+umask
+#0022 # <- Verify it is 0022
+cd /opt
+git clone https://github.com/mailcow/mailcow-dockerized
+cd mailcow-dockerized
+./generate_config.sh
+
+echo "/usr/local/nginx/sbin/nginx -s reload"
+
+
 
 echo "Server config successful"
 #es geht halt etzt darum zu sagen das ich mir den mailserver auch hier ienfach autonom einrichten kann 
