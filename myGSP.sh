@@ -192,17 +192,17 @@ systemctl start nginx
 
 timedatectl set-timezone Europe/Berlin
 
-#curl -sSL https://get.docker.com/ | CHANNEL=stable sh
-#systemctl enable --now docker
+curl -sSL https://get.docker.com/ | CHANNEL=stable sh
+systemctl enable --now docker
 
-#apt update
-#apt install docker-compose-plugin
-#umask
-#0022 # <- Verify it is 0022
-#cd /opt
-#git clone https://github.com/mailcow/mailcow-dockerized
-#cd mailcow-dockerized
-#./generate_config.sh
+apt update
+apt install docker-compose-plugin
+umask
+0022 # <- Verify it is 0022
+cd /opt
+git clone https://github.com/mailcow/mailcow-dockerized
+cd mailcow-dockerized
+./generate_config.sh
 
 echo "/usr/local/nginx/sbin/nginx -s reload"
 
