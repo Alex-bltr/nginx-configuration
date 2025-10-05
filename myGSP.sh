@@ -4,7 +4,7 @@ echo "--- Starting configuration ----------"
 sudo apt update && sudo apt upgrade -y
 
 maingroup="www-data"
-mainusr="wpusr1"
+mainusr="wpusr_root"
 
 # Firewall und OpenSSH
 sudo apt install -y openssh-server ufw
@@ -39,13 +39,13 @@ php8.3-soap php8.3-zip
 
 # Jetzt PHP-Konfig anpassen (erst jetzt sind die Dateien da)
 file_line_check() {
-  keyword="$1"
-  file="$2"
-  new_line="$3"
+keyword="$1"
+file="$2"
+new_line="$3"
 
-  if grep -q "$keyword" "$file"; then
+if grep -q "$keyword" "$file"; then
     sudo sed -i "/$keyword/c\\$new_line" "$file"
-  fi
+fi
 }
 
 file=( "/etc/php/8.3/fpm/pool.d/www.conf" "/etc/php/8.3/fpm/php.ini" )
@@ -55,16 +55,16 @@ keywords=( "user =" "group =" "listen.owner =" "listen.group =" "upload_max_file
 new_lines=( "user = www-data" "group = www-data" "listen.owner = www-data" "listen.group = www-data" "upload_max_filesize = 20M" "post_max_size = 80M" )
 
 for ((f=0; f<2; f++)); do
-  filename="${file[$f]}"
-  if [[ "$filename" == *php.ini ]]; then
+filename="${file[$f]}"
+if [[ "$filename" == *php.ini ]]; then
     for ((k=0; k<2; k++)); do
-      file_line_check "${keywords[4+$k]}" "$filename" "${new_lines[4+$k]}"
+    file_line_check "${keywords[4+$k]}" "$filename" "${new_lines[4+$k]}"
     done
-  else
+else
     for ((k=0; k<4; k++)); do
-     file_line_check "${keywords[$k]}" "$filename" "${new_lines[$k]}"
+    file_line_check "${keywords[$k]}" "$filename" "${new_lines[$k]}"
     done
-  fi
+fi
 done
 
 sudo systemctl restart php8.3-fpm
@@ -105,7 +105,7 @@ sudo make modules
 sudo mkdir /usr/local/nginx
 sudo mkdir /usr/local/nginx/modules/
 
-# 5. Module ins nginx Verzeichnis kopieren
+# 5. Module ins nginxf Verzeichnis kopieren
 sudo cp objs/ngx_http_brotli_filter_module.so /usr/local/nginx/modules/
 sudo cp objs/ngx_http_brotli_static_module.so /usr/local/nginx/modules/
 
@@ -184,7 +184,6 @@ sudo mkdir nginx
 cd nginx
 sudo mkdir fastcgi_cache
 systemctl stop nginx
-sudo apt-get remove certbot
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sudo certbot certonly --standalone -d test.scaveo.de
@@ -192,24 +191,26 @@ systemctl start nginx
 
 timedatectl set-timezone Europe/Berlin
 
-curl -sSL https://get.docker.com/ | CHANNEL=stable sh
-systemctl enable --now docker
 
-apt update
-apt install docker-compose-plugin
+#curl -sSL https://get.docker.com/ | CHANNEL=stable sh
+#systemctl enable --now docker
 
-cd /opt
-git clone https://github.com/mailcow/mailcow-dockerized
-cd mailcow-dockerized
-./generate_config.sh
+#apt update
+#apt install docker-compose-plugin
+
+#cd /opt
+#git clone https://github.com/mailcow/mailcow-dockerized
+#cd mailcow-dockerized
+#./generate_config.sh
+
+curl -s https://install.crowdsec.net | sudo sh
+apt install crowdsec -y
+sudo cscli console enroll cmcqf8o30000fjs02nmbr8o8i
+
+
 
 echo "/usr/local/nginx/sbin/nginx -s reload"
 
 
 
 echo "Server config successful"
-#es geht halt etzt darum zu sagen das ich mir den mailserver auch hier ienfach autonom einrichten kann 
-#allerdings ist halt die frge was isnd miene anvrderungen aber das werde ich ha alles im kurs lernen 
-#die andere frageist sollte ich alles per hand machen oder mailcow nutzen um mir diese schritten zu 
-#sparen andereseits ist es halt teilweise dann doch notwendig das wa spassiert zu verstehnen deswegen mache ich ja den kurs und kann ach gleich einfach alles#
-#selbst machen 
