@@ -186,7 +186,7 @@ sudo mkdir fastcgi_cache
 systemctl stop nginx
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
-sudo certbot certonly --standalone -d test.scaveo.de
+sudo certbot certonly --standalone -d klarerkopf-augsburg.de
 systemctl start nginx
 
 timedatectl set-timezone Europe/Berlin
