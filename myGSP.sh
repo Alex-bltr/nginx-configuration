@@ -186,22 +186,12 @@ sudo mkdir fastcgi_cache
 systemctl stop nginx
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
-sudo certbot certonly --standalone -d klarerkopf-augsburg.de
+sudo certbot certonly --standalone -d scaveo.de
 systemctl start nginx
 
 timedatectl set-timezone Europe/Berlin
 
 
-#curl -sSL https://get.docker.com/ | CHANNEL=stable sh
-#systemctl enable --now docker
-
-#apt update
-#apt install docker-compose-plugin
-
-#cd /opt
-#git clone https://github.com/mailcow/mailcow-dockerized
-#cd mailcow-dockerized
-#./generate_config.sh
 
 curl -s https://install.crowdsec.net | sudo sh
 apt install crowdsec -y
